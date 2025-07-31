@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>電波法演習問題</title>
+    <style>
+      /* 見た目を整えるためのCSS */
+      body {
+        font-family: "Helvetica Neue", "Arial", "Hiragino Kaku Gothic ProN",
+          "Hiragino Sans", "Meiryo", sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* 上寄せ */
+        min-height: 100vh;
+        margin: 0;
+        padding: 40px 0; /* 上下の余白 */
+      }
+      .quiz-container {
+        background-color: #ffffff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 700px;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+      }
+      .main-question {
+        margin-bottom: 30px;
+      }
+      h2 {
+        color: #0056b3;
+        border-left: 5px solid #007bff;
+        padding-left: 10px;
+        margin-bottom: 20px;
+      }
+      .sub-question {
+        margin-bottom: 20px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .sub-question-title {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .sub-question input[type="text"] {
+        font-size: 16px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin: 0 8px;
+        width: 150px;
+      }
+      .result-marker {
+        font-size: 24px;
+        font-weight: bold;
+        width: 30px;
+        text-align: center;
+        margin-left: 5px;
+      }
+      .choices {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-left: 20px;
+      }
+      .choices label {
+        margin-bottom: 8px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .sub-question textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: vertical;
+      }
+      .writing-answer-display {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #e9f5ff;
+        border-radius: 6px;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+      }
+      .question-image {
+        width: 100%;
+        max-width: 400px;
+        display: block;
+        margin: 10px auto 15px; /* 画像を中央に配置 */
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      /* 番号選択問題の選択肢リスト */
+      .choices-list {
+        width: 100%;
+        margin-top: 15px;
+        padding: 15px;
+        background-color: #fafafa;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px; /* 行間と列間 */
+      }
+      .choices-list span {
+        width: calc(50% - 10px); /* 2列表示 */
+        font-size: 16px;
+      }
+      /* ページとナビゲーションのスタイル */
+      .page {
+        display: none; /* デフォルトで非表示 */
+      }
+      .page.active {
+        display: block; /* 表示するページ */
+      }
+      .page-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+      }
+      .nav-button,
+      .check-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .check-button {
+        background-color: #007bff;
+      }
+      .check-button:hover {
+        background-color: #0056b3;
+      }
+      .nav-button {
+        background-color: #6c757d;
+      }
+      .nav-button:hover {
+        background-color: #5a6268;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <h1>電波法演習問題</h1>
+
+      <div id="page-1" class="page active">
+        <div class="main-question">
+          <h2>Q1. 電波法第1条について、空欄を埋めよ。</h2>
+          <div class="sub-question">
+            <span>この法律は、電波の</span>
+            <input type="text" id="answer-1-1" />
+            <span id="result-1-1" class="result-marker"></span>
+            <span>かつ</span>
+            <input type="text" id="answer-1-2" />
+            <span id="result-1-2" class="result-marker"></span>
+            <span>な利用を確保することによって、</span>
+            <input type="text" id="answer-1-3" />
+            <span id="result-1-3" class="result-marker"></span>
+            <span>を増進することを目的とする。</span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>Q2. 電波法第1条について、電波はどのように利用されるべきか。</h2>
+          <div class="sub-question">
+            <textarea
+              id="answer-2-1"
+              rows="4"
+              placeholder="ここに回答を入力"
+            ></textarea>
+            <div id="result-2-1" class="writing-answer-display"></div>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>
+            Q3.
+            電波法第2条について、空欄に入れるべき字句の組み合わせを一つ選べ。
+          </h2>
+          <div class="sub-question">
+            <span class="sub-question-title"
+              >一、電波とは、[A]メガヘルツ以下の周波数の電磁波をいう。</span
+            >
+            <span class="sub-question-title"
+              >四、「無線設備」とは、無線電信、無線電話その他電波を送り、または受けるための[B]をいう。</span
+            >
+            <span class="sub-question-title"
+              >五、「無線局」とは、[B]および[C]の総体をいう。ただし、受信のみを目的とするものを含まない。</span
+            >
+            <span class="sub-question-title"
+              >六、「無線従事者」とは、無線設備の操作またはその監督を行うものであつて、総務大臣の[D]を受けたものをいう。</span
+            >
+            <div class="choices">
+              <label
+                ><input
+                  type="radio"
+                  name="answer-3-1"
+                  value="A,三百万、B,電気的設備、C,無線設備の操作を行う者の総体、D,登録"
+                />A,三百万、B,電気的設備、C,無線設備の操作を行う者の総体、D,登録</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="answer-3-1"
+                  value="A,三十万、B,無線設備、C,無線設備の保守を行うもの、D,免許"
+                />A,三十万、B,無線設備、C,無線設備の保守を行うもの、D,免許</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="answer-3-1"
+                  value="A,三十万、B,電気的設備、C,無線設備の保守を行うもの、D,登録"
+                />A,三十万、B,電気的設備、C,無線設備の保守を行うもの、D,登録</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="answer-3-1"
+                  value="A,三百万、B,電気的設備、C,無線設備の操作を行う者の総体、D,免許"
+                />A,三百万、B,電気的設備、C,無線設備の操作を行う者の総体、D,免許</label
+              >
+            </div>
+            <span id="result-3-1" class="result-marker"></span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>Q4. 電波法第4条について、空欄に入れるべき字句を以下より選べ。</h2>
+          <div class="sub-question">
+            <span>無線局を開設しようとする者は、総務大臣の</span>
+            <input type="text" id="answer-4-1" placeholder="番号" />
+            <span id="result-4-1" class="result-marker"></span>
+            <span
+              >を受けなければならない。ただし、次の各号に掲げる無線局については、この限りではない。</span
+            >
+          </div>
+          <div class="sub-question">
+            <span
+              >一、発射する電波が著しく微弱な無線局で総務省令で定めるもの</span
+            >
+          </div>
+          <div class="sub-question">
+            <span
+              >二、二十六・九メガヘルツから二十七・二メガヘルツまでの周波数の電波を使用し、かつ、空中線電力が</span
+            >
+            <input type="text" id="answer-4-2" placeholder="番号" />
+            <span id="result-4-2" class="result-marker"></span>
+            <span
+              >以下である無線局のうち総務省令で定めるものであつて、第三十八条の七第一項、第三十八条の二十六または第三十八条の三十五の規定により表示が付されている無線設備のみを使用するもの</span
+            >
+          </div>
+          <div class="sub-question">
+            <span
+              >三、空中線電力が一ワット以下である無線局のうち総務省令で定めるものであつて、第四条の三の規定により指定された呼出符号又は呼出名称を自動的に送信し、又は受信する機能その他総務省令で定める機能を有することにより他の無線局にその運用を阻害するような混信その他の妨害を与えないように運用することができるもので、かつ、</span
+            >
+            <input type="text" id="answer-4-3" placeholder="番号" />
+            <span id="result-4-3" class="result-marker"></span>
+            <span>のみを使用するもの</span>
+          </div>
+          <div class="sub-question">
+            <span>四、第二十七条の二十一第一項の</span>
+            <input type="text" id="answer-4-4" placeholder="番号" />
+            <span id="result-4-4" class="result-marker"></span>
+            <span>を受けて開設する無線局</span>
+          </div>
+          <div class="choices-list">
+            <span>1. 免許</span>
+            <span>2. 適合表示無線設備</span>
+            <span>3. 登録</span>
+            <span>4. 0.5W</span>
+            <span>5. 1W</span>
+            <span>6. 認定</span>
+            <span>7. 適合表示無線機器</span>
+            <span>8. 許可</span>
+          </div>
+        </div>
+        <div class="page-navigation">
+          <button onclick="checkAnswers(1)" class="check-button">
+            1ページの答え合わせ
+          </button>
+          <button onclick="showPage(2)" class="nav-button">
+            次のページへ →
+          </button>
+        </div>
+      </div>
+
+      <div id="page-2" class="page">
+        <div class="main-question">
+          <h2>Q5. 電波法第5条の欠格事由について、空欄を埋めよ。</h2>
+          <div class="sub-question">
+            次の各号のいずれかに該当する者には、無線局の免許を与えない。
+          </div>
+          <div class="sub-question">
+            <span>一、日本の</span>
+            <input type="text" id="answer-5-1" placeholder="[A]" />
+            <span id="result-5-1" class="result-marker"></span>
+            <span>を有しない人</span>
+          </div>
+          <div class="sub-question">
+            <span>二、外国政府又はその代表者</span>
+          </div>
+          <div class="sub-question">
+            <span>三、</span>
+            <input type="text" id="answer-5-2" placeholder="[B]" />
+            <span id="result-5-2" class="result-marker"></span>
+            <span>の法人又は団体</span>
+          </div>
+          <div class="sub-question">
+            <span
+              >法人又は団体であつて、前三号に掲げる者がその代表者であるもの又はこれらの者がその役員の</span
+            >
+            <input type="text" id="answer-5-3" placeholder="[C]" />
+            <span id="result-5-3" class="result-marker"></span>
+            <span>以上若しくは議決権の[C]以上を占めるもの</span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>
+            Q6. 以下のフローは一般的な無線局の免許手続きである。空欄を埋めよ。
+          </h2>
+          <img
+            src="IMG_4992.JPG"
+            alt="無線局の免許手続きフローチャート"
+            class="question-image"
+            onerror="this.onerror=null;this.src='https://placehold.co/600x300?text=画像読込失敗';"
+          />
+          <div class="sub-question">
+            <span>A. </span><input type="text" id="answer-6-1" /><span
+              id="result-6-1"
+              class="result-marker"
+            ></span>
+          </div>
+          <div class="sub-question">
+            <span>B. </span><input type="text" id="answer-6-2" /><span
+              id="result-6-2"
+              class="result-marker"
+            ></span>
+          </div>
+          <div class="sub-question">
+            <span>C. </span><input type="text" id="answer-6-3" /><span
+              id="result-6-3"
+              class="result-marker"
+            ></span>
+          </div>
+          <div class="sub-question">
+            <span>D. </span><input type="text" id="answer-6-4" /><span
+              id="result-6-4"
+              class="result-marker"
+            ></span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>Q7. 電波法第6条について、空欄を以下の字句より選べ。</h2>
+          <div class="sub-question">
+            <span
+              >無線局の免許を受けようとする者は、申請書に、次に掲げる事項を記載した書類を添えて、総務大臣に提出しなければならない。</span
+            >
+          </div>
+          <div class="sub-question">
+            <span>一、目的</span>
+          </div>
+          <div class="sub-question">
+            <span>二、</span><input type="text" id="answer-7-1" />
+            <span id="result-7-1" class="result-marker"></span>
+          </div>
+          <div class="sub-question">
+            <span>三、</span><input type="text" id="answer-7-2" />
+            <span id="result-7-2" class="result-marker"></span
+            ><span>及び通信事項</span>
+          </div>
+          <div class="sub-question">
+            <span>四、無線設備の設置場所</span>
+          </div>
+          <div class="sub-question">
+            <span>五、</span><input type="text" id="answer-7-3" />
+            <span id="result-7-3" class="result-marker"></span
+            ><span>並びに希望する周波数の範囲及び</span
+            ><input type="text" id="answer-7-4" />
+            <span id="result-7-4" class="result-marker"></span>
+          </div>
+          <div class="sub-question">
+            <span>六、希望する</span><input type="text" id="answer-7-5" />
+            <span id="result-7-5" class="result-marker"></span>
+          </div>
+          <div class="sub-question">
+            <span>七、無線設備の</span><input type="text" id="answer-7-6" />
+            <span id="result-7-6" class="result-marker"></span
+            ><span>及び工事落成の予定期日</span>
+          </div>
+          <div class="sub-question">
+            <span>八、</span><input type="text" id="answer-7-7" />
+            <span id="result-7-7" class="result-marker"></span
+            ><span>の予定期日</span>
+          </div>
+          <div class="sub-question">
+            <span
+              >九、他の無線局の第十四条第二項第二号の免許人又は第二十七条の二十六第一項の登録人(以下「免許人等」という。)との間で</span
+            ><input type="text" id="answer-7-8" />
+            <span id="result-7-8" class="result-marker"></span
+            ><span
+              >を防止するために必要な措置に関する契約を締結しているときは、その契約の内容の予定期日</span
+            >
+          </div>
+          <div class="choices-list">
+            <span>1. 開設を必要とする理由</span>
+            <span>2. 陸上に開設する</span>
+            <span>3. 適合表示無線設備</span>
+            <span>4. 同じくする</span>
+            <span>5. 電波の型式</span>
+            <span>6. 通信の相手方</span>
+            <span>7. 電気通信業務</span>
+            <span>8. 二以上開設</span>
+          </div>
+        </div>
+        <div class="page-navigation">
+          <button onclick="showPage(1)" class="nav-button">
+            ← 前のページへ
+          </button>
+          <button onclick="checkAnswers(2)" class="check-button">
+            2ページの答え合わせ
+          </button>
+          <button onclick="showPage(3)" class="nav-button">
+            次のページへ →
+          </button>
+        </div>
+      </div>
+      <div id="page-3" class="page">
+        <div class="main-question">
+          <h2>Q8. 以下は予備免許に関する記述である。正しいものを二つ選べ。</h2>
+          <div class="sub-question">
+            <label
+              ><input type="checkbox" name="answer-8-1" value="1" /> 1.
+              総務大臣は、免許申請を審査した結果、その申請が所定の基準に適合していると認めるときは、申請者に対し、無線局の予備免許を与える。</label
+            >
+          </div>
+          <div class="sub-question">
+            <label
+              ><input type="checkbox" name="answer-8-1" value="2" /> 2.
+              予備免許を受けたものは、工事設計を変更しようとするときは、その工事変更完了後に総務大臣に届けなければならない。</label
+            >
+          </div>
+          <div class="sub-question">
+            <label
+              ><input type="checkbox" name="answer-8-1" value="3" /> 3.
+              予備免許を受けたものは、総務大臣から指定された周波数、電波の型式又は空中線電力の変更に関わる工事設計を自らの判断でできる。</label
+            >
+          </div>
+          <div class="sub-question">
+            <label
+              ><input type="checkbox" name="answer-8-1" value="4" /> 4.
+              総務大臣から指定される無線局の予備免許の事項は、工事落成の期限、電波の型式及び周波数、呼出符号、呼出名称その他の総務省令で定める識別信号、空中線電力、運用許容時間である。</label
+            >
+          </div>
+          <span id="result-8-1" class="result-marker"></span>
+        </div>
+        <div class="main-question">
+          <h2>Q9. 電波法第27条の2について、空欄を以下の字句より選べ。</h2>
+          <div class="sub-question">
+            <span>次の各号のいずれかに掲げる無線局であつて、</span
+            ><input type="text" id="answer-9-1" placeholder="[A]" />
+            <span id="result-9-1" class="result-marker"></span
+            ><span>のみを使用するもの(以下「特定無線局」という。)を</span
+            ><input type="text" id="answer-9-2" placeholder="[B]" />
+            <span id="result-9-2" class="result-marker"></span
+            ><span>しようとする者は、その特定無線局が目的、</span
+            ><input type="text" id="answer-9-3" placeholder="[C]" />
+            <span id="result-9-3" class="result-marker"></span><span>、</span
+            ><input type="text" id="answer-9-4" placeholder="[D]" />
+            <span id="result-9-4" class="result-marker"></span
+            ><span
+              >及び周波数並びに無線設備の規格(総務省令で定めるものに限る。)を</span
+            ><input type="text" id="answer-9-5" placeholder="[E]" />
+            <span id="result-9-5" class="result-marker"></span
+            ><span
+              >ものである限りにおいて、次条から第二十七条の十一までに規定するところにより、これらの特定無線局を包括して対象とする免許を申請することができる。</span
+            >
+          </div>
+          <div class="sub-question">
+            <span
+              >一、移動する無線局であつて、[C]である無線局からの電波を受けることによつて</span
+            ><input type="text" id="answer-9-6" placeholder="[F]" />
+            <span id="result-9-6" class="result-marker"></span
+            ><span
+              >される周波数の電波のみを発射するもののうち、総務省令で定める無線局</span
+            >
+          </div>
+          <div class="sub-question">
+            <span>二、</span
+            ><input type="text" id="answer-9-7" placeholder="[G]" />
+            <span id="result-9-7" class="result-marker"></span
+            ><span>を行うことを目的として</span
+            ><input type="text" id="answer-9-8" placeholder="[H]" />
+            <span id="result-9-8" class="result-marker"></span
+            ><span
+              >移動しない無線局であつて、移動する無線局を[C]とするもののうち、無線設備の設置場所、空中線電力等を勘案して総務省令で定める無線局</span
+            >
+          </div>
+          <div class="choices-list">
+            <span>1. 自動的に選択</span>
+            <span>2. 運用許容時間</span>
+            <span>3. 工事設計</span>
+            <span>4. 運用開始</span>
+            <span>5. 混信その他の妨害</span>
+            <span>6. 電波の型式</span>
+            <span>7. 通信の相手方</span>
+            <span>8. 空中線電力</span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>Q10. 電波法第27条の21に関して、空欄を以下の字句により埋めよ。</h2>
+          <div class="sub-question">
+            <span>電波を発射しようとする場合において当該電波と</span
+            ><input type="text" id="answer-10-1" placeholder="[A]" />
+            <span id="result-10-1" class="result-marker"></span
+            ><span>電波を受信することにより一定の時間自己の電波を</span
+            ><input type="text" id="answer-10-2" placeholder="[B]" />
+            <span id="result-10-2" class="result-marker"></span
+            ><span
+              >ことを確保する機能を有する無線局その他無線設備の規格を同じくする他の無線局の運用を阻害するような</span
+            ><input type="text" id="answer-10-3" placeholder="[C]" />
+            <span id="result-10-3" class="result-marker"></span
+            ><span
+              >を与えないように運用することのできる無線局のうち総務省令で定めるものであつて、</span
+            ><input type="text" id="answer-10-4" placeholder="[D]" />
+            <span id="result-10-4" class="result-marker"></span
+            ><span
+              >のみを使用するものを総務省令で定める区域内に開設しようとする者は、総務大臣の</span
+            ><input type="text" id="answer-10-5" placeholder="[E]" />
+            <span id="result-10-5" class="result-marker"></span
+            ><span>を受けなければならない。</span>
+          </div>
+          <div class="choices-list">
+            <span>1. 混信その他妨害</span>
+            <span>2. 適合表示無線設備</span>
+            <span>3. 同じくする</span>
+            <span>4. 発射しない</span>
+            <span>5. 登録</span>
+          </div>
+        </div>
+        <div class="page-navigation">
+          <button onclick="showPage(2)" class="nav-button">
+            ← 前のページへ
+          </button>
+          <button onclick="checkAnswers(3)" class="check-button">
+            3ページの答え合わせ
+          </button>
+          <button onclick="showPage(4)" class="nav-button">
+            次のページへ →
+          </button>
+        </div>
+      </div>
+
+      <!--page. 4-->
+      <div id="page-4" class="page">
+        <div class="main-question">
+          <h2>
+            Q11. 電波法第27条の12について、空欄に入れるべき字句を以下より選べ。
+          </h2>
+          <div class="sub-question">
+            <span
+              >総務大臣は、陸上に開設する移動しない無線局であつて、次の各号のいずれかに掲げる事項を確保するために、</span
+            ><input type="text" id="answer-11-1" placeholder="[A]" />
+            <span id="result-11-1" class="result-marker"></span
+            ><span>ことが必要であるもののうち、</span
+            ><input type="text" id="answer-11-2" placeholder="[B]" />
+            <span id="result-11-2" class="result-marker"></span
+            ><span>を確保するためその</span
+            ><input type="text" id="answer-11-3" placeholder="[C]" />
+            <span id="result-11-3" class="result-marker"></span
+            ><span
+              >を図ることが必要であると認められるもの(以下「特定基地局」という。)について、特定基地局の開設に関する指針(以下「開設指針」という。)を定めることができる。
+            </span>
+            <div class="sub-question">
+              <span>一、</span
+              ><input type="text" id="answer-11-4" placeholder="[D]" />
+              <span id="result-11-4" class="result-marker"></span
+              ><span>を行うことを目的として</span
+              ><input type="text" id="answer-11-5" placeholder="[E]" />
+              <span id="result-11-5" class="result-marker"></span
+              ><span>無線局の移動範囲における当該[D]のための無線通信</span>
+            </div>
+            <div class="sub-question">
+              <span
+                >二、移動受信用地上基幹放送に係る放送対象地域(放送法第九十一条第二項第二号に規定する放送対象地域をいう。第二十七条の十四第二項第三号において同じ。)における当該移動受信用地上基幹放送の受信</span
+              >
+            </div>
+            <div class="choices-list">
+              <span>1. 同一のものにより相当数開設される</span>
+              <span>2. 電気通信業務</span>
+              <span>3. 電波の公平かつ能率的な利用</span>
+              <span>4. 円滑な開設</span>
+              <span>5. 陸上に開設する移動する</span>
+            </div>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>
+            Q12.
+            電波法第26条（周波数利用計画）と27条（利用調査）について、正しいものを一つ選べ。
+          </h2>
+          <div class="sub-question">
+            <label
+              ><input type="radio" name="answer-12-1" value="1" /> 1.
+              総務大臣は、免許申請を審査した結果、その申請が所定の基準に適合していると認めるときは、申請者に対し、無線局の予備免許を与える。</label
+            >
+          </div>
+          <div class="sub-question">
+            <label
+              ><input type="radio" name="answer-12-1" value="2" /> 2.
+              予備免許を受けたものは、工事設計を変更しようとするときは、その工事変更完了後に総務大臣に届けなければならない。</label
+            >
+          </div>
+          <span id="result-12-1" class="result-marker"></span>
+        </div>
+        <div class="main-question">
+          <h2>
+            Q13.
+            電波法第24条の2（検査等事業者）について、空欄に入れるべき字句を以下より選べ。
+          </h2>
+          <div class="sub-question">
+            <span>無線設備などの検査又は点検の事業を行う者は、総務大臣の</span
+            ><input type="text" id="answer-13-1" placeholder="[A]" />
+            <span id="result-13-1" class="result-marker"></span
+            ><span>を受けることができる。</span>
+          </div>
+          <div class="sub-question">
+            <span
+              >前項の[A]を受けようとする者は、総務省令で定めるところにより、次に掲げる事項を記載した申請書を総務大臣に提出しなければならない</span
+            >
+          </div>
+          <div class="sub-question">
+            <span>点検に用いる</span
+            ><input type="text" id="answer-13-2" placeholder="[B]" />
+            <span id="result-13-2" class="result-marker"></span
+            ><span>その他の設備の概要</span>
+          </div>
+          <div class="choices-list">
+            <span>1. 免許</span>
+            <span>2. 許可</span>
+            <span>3. 登録</span>
+            <span>4. 無線設備</span>
+            <span>5. 測定器</span>
+            <span>6. アンテナ</span>
+          </div>
+        </div>
+        <div class="page-navigation">
+          <button onclick="showPage(3)" class="nav-button">
+            ← 前のページへ
+          </button>
+          <button onclick="checkAnswers(4)" class="check-button">
+            4ページの答え合わせ
+          </button>
+          <button onclick="showPage(5)" class="nav-button">
+            次のページへ →
+          </button>
+        </div>
+      </div>
+      <div id="page-5" class="page">
+        <div class="main-question">
+          <h2>Q14. 電波法第28条（電波の質）について、空欄を埋めよ。</h2>
+          <div class="sub-question">
+            <span>送信設備に使用する電波の</span
+            ><input type="text" id="answer-14-1" placeholder="[A]" />
+            <span id="result-14-1" class="result-marker"></span><span>、</span
+            ><input type="text" id="answer-14-2" placeholder="[B]" />
+            <span id="result-14-2" class="result-marker"></span
+            ><span>電波の質は、総務省令で定めるところに</span
+            ><input type="text" id="answer-14-3" placeholder="[C]" />
+            <span id="result-14-3" class="result-marker"></span
+            ><span>するものでなければならない。</span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>Q15. 電波法第38条の2の2の空欄について以下より選べ。</h2>
+          <div class="sub-question">
+            <span></span
+            ><input type="text" id="answer-15-1" placeholder="[A]" />
+            <span id="result-15-1" class="result-marker"></span
+            ><span
+              >に使用するための無線設備であつて総務省令で定めるものについて、前章に定める</span
+            ><input type="text" id="answer-15-2" placeholder="[B]" />
+            <span id="result-15-2" class="result-marker"></span
+            ><span>に適合していることの</span
+            ><input type="text" id="answer-15-3" placeholder="[C]" />
+            <span id="result-15-3" class="result-marker"></span
+            ><span
+              >の事業を行う者は、次に掲げる事業の区分ごとに、総務大臣の</span
+            ><input type="text" id="answer-15-4" placeholder="[D]" />
+            <span id="result-15-4" class="result-marker"></span
+            ><span>を受けることができる。</span>
+            <div class="choices-list">
+              <span>1. 証明</span>
+              <span>2. 大規模な無線局</span>
+              <span>3. 技術基準</span>
+              <span>4. 免許</span>
+              <span>5. 技術水準</span>
+              <span>6. 登録</span>
+              <span>7. 無線局</span>
+              <span>8. 小規模な無線局</span>
+            </div>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>
+            Q16.
+            電波法29条の受信設備の条件について、以下の空欄に入る語句を選択せよ。
+          </h2>
+          <div class="sub-question">
+            <span>受信設備は、その</span
+            ><input type="text" id="answer-16-1" placeholder="[A]" />
+            <span id="result-16-1" class="result-marker"></span
+            ><span>発する電波又は</span
+            ><input type="text" id="answer-16-2" placeholder="[B]" />
+            <span id="result-16-2" class="result-marker"></span
+            ><span
+              >が、総務省で定める限度をこえて他の無線設備の機能に支障をあたえるものであつてはならない。</span
+            >
+          </div>
+          <div class="choices-list">
+            <span>1. 輻射的に</span>
+            <span>2. 副次的に</span>
+            <span>3. 主に</span>
+            <span>4. 高調波電流</span>
+            <span>5. 高周波電流</span>
+            <span>6. 低調波電流</span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>
+            Q17.
+            電波法第30条の安全設備について、以下の空欄に入る語句を選択せよ。
+          </h2>
+          <div class="sub-question">
+            <span>無線設備には、</span
+            ><input type="text" id="answer-17-1" placeholder="[A]" />
+            <span id="result-17-1" class="result-marker"></span
+            ><span>を及ぼし、又は</span
+            ><input type="text" id="answer-17-2" placeholder="[B]" />
+            <span id="result-17-2" class="result-marker"></span
+            ><span
+              >を与えることがないように、総務省令で定める施設をしなければならない。</span
+            >
+          </div>
+          <div class="choices-list">
+            <span>1. 人体に危害</span>
+            <span>2. 人体を損傷</span>
+            <span>3. 人体に影響</span>
+            <span>4. 物件に危害</span>
+            <span>5. 物件に損傷</span>
+            <span>6. 物件に影響</span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>
+            Q18.
+            人体頭部における比吸収率に関する規定について、空欄に入る語句を選択せよ。
+          </h2>
+          <div class="sub-question">
+            <span
+              >携帯無線通信を行う陸上移動局、広帯域移動無線アクセスシステムの陸上移動局、非静止衛星に開設する人工衛星局の中継により、携帯移動衛星通信を行う兄弟移動地球局、第四十九条の二十三の二に規定する携帯移動地球局及びインマルサット携帯移動地球局（インマルサットGSPS型に限る。）の無線設備（伝送情報が電話（音響の放送を含む。以下この項において同じ。）の無線設備（伝送情報が電話（音響の放送を含む。以下この項において同じ。）もの及び電話とその他の情報の組合せのものに限る。）は、当該むせ設備から発射される電波の人体頭部における比吸収率（電磁会にさらされてことによつて任意の生体組織</span
+            ><input type="text" id="answer-18-1" placeholder="[A]" />
+            <span id="result-18-1" class="result-marker"></span
+            ><span>が任意の</span
+            ><input type="text" id="answer-18-2" placeholder="[B]" />
+            <span id="result-18-2" class="result-marker"></span
+            ><span
+              >に吸収したエネルギーを[A]で除し、さらに[B]で除して得た値をいう。以下同じ。）を毎キログラム当たり</span
+            ><input type="text" id="answer-18-3" placeholder="[C]" />
+            <span id="result-18-3" class="result-marker"></span
+            ><span
+              >以下とする者でなければならない。ただし、次に掲げる無線設備についてはこの限りではない。</span
+            >
+            <div class="sub-question">
+              <span> 一、平均電力が二〇ミリワット以下の無線設備 </span>
+            </div>
+            <div class="sub-question">
+              <span>
+                二、前号に掲げるもののほか、この規定を適用することが不合理であるものとして総務大臣が別に告示する無線設備
+              </span>
+            </div>
+            <div class="sub-question">
+              <span>
+                2.
+                前項の人体頭部における比吸収率の測定方法については、総務大臣が別に告示する。
+              </span>
+            </div>
+          </div>
+          <div class="choices-list">
+            <span>1. 1グラム</span>
+            <span>2. 10グラム</span>
+            <span>3. 100グラム</span>
+            <span>4. 6分間</span>
+            <span>5. 12分間</span>
+            <span>6. 24分間</span>
+            <span>7. 200 mW</span>
+            <span>8. 2 W</span>
+            <span>9. 20 W</span>
+          </div>
+        </div>
+        <div class="page-navigation">
+          <button onclick="showPage(4)" class="nav-button">
+            ← 前のページへ
+          </button>
+          <button onclick="checkAnswers(5)" class="check-button">
+            5ページの答え合わせ
+          </button>
+          <button onclick="showPage(6)" class="nav-button">
+            次のページへ →
+          </button>
+        </div>
+      </div>
+      <div id="page-6" class="page">
+        <div class="main-question">
+          <h2>
+            Q19. 送信空中線に関する説明文について、空欄に入る語句を選択せよ。
+          </h2>
+          <div class="sub-question">
+            <span
+              >送信空中線の型式及び構成は、次の各号に適合する者でなければならない。（1）空中線の利得及び</span
+            ><input type="text" id="answer-19-1" placeholder="[A]" />
+            <span id="result-19-1" class="result-marker"></span
+            ><span>がなるべく大であること、（2）</span
+            ><input type="text" id="answer-19-2" placeholder="[B]" />
+            <span id="result-19-2" class="result-marker"></span
+            ><span
+              >が十分であること、（3）満足な指向特性が得られること、である。空中線の指向特性は、（1）主輻射方向及び副輻射方向、（2）水平面の主輻射の角度の幅、（3）空中線を設置する位置の</span
+            ><input type="text" id="answer-19-3" placeholder="[C]" />
+            <span id="result-19-3" class="result-marker"></span
+            ><span>にあるものであつて電波の伝わる方向を乱すもの、（4）</span
+            ><input type="text" id="answer-19-4" placeholder="[D]" />
+            <span id="result-19-4" class="result-marker"></span
+            ><span>よりの輻射により規定される。</span>
+          </div>
+          <div class="choices-list">
+            <span>1. 給電線</span>
+            <span>2. 能率</span>
+            <span>3. 近傍</span>
+            <span>4. 整合</span>
+          </div>
+        </div>
+        <div class="main-question">
+          <h2>
+            Q20.
+            適合表示無線設備について説明した文章である。空欄に入る語句を選択せよ。
+          </h2>
+          <div class="sub-question">
+            <span> 適合表示無線設備には、一般に、</span
+            ><input type="text" id="answer-20-1" placeholder="[A]" />
+            <span id="result-20-1" class="result-marker"></span
+            ><span>証明機器、</span
+            ><input type="text" id="answer-20-2" placeholder="[B]" />
+            <span id="result-20-2" class="result-marker"></span
+            ><span>認証機器、技術基準適合</span
+            ><input type="text" id="answer-20-3" placeholder="[C]" />
+            <span id="result-20-3" class="result-marker"></span
+            ><span
+              >の総称である。本来は、無線局設置に伴い総務省にて無線設備を検査する。携帯電話のような無線設備を1台ごとに検査できない。外部の技術認証機関を設け、無線設備が法で規定する技術基準を適合しているのかを検査する。[A]証明機器は、認定を受ける機器一台ごとに検査のうえ、合格であれば認定する。これに対して、[B]認定機器は、いわゆるタイプ別認証ともいわれ、工事設計資料に基づいて、無線機器型式にて審査のうえ、認定する。技術適合[C]は、一定の条件を「満たす場合に無線機器製造者にて技術適合を認定することができる。いずれの場合も当該無線機器の技術適合を確認したのち、</span
+            ><input type="text" id="answer-20-4" placeholder="[D]" />
+            <span id="result-20-4" class="result-marker"></span
+            ><span>への報告が必要である。</span>
+          </div>
+          <div class="choices-list">
+            <span>1. 他社確認機器</span>
+            <span>2. 自己確認機器</span>
+            <span>3. 電気通信総合局長</span>
+            <span>4. 総務大臣</span>
+            <span>5. 工事設計</span>
+            <span>6. 技術基準適合</span>
+            <span>7. 技術水準適合</span>
+            <span>8. 無線機器型式</span>
+          </div>
+        </div>
+        <div class="page-navigation">
+          <button onclick="showPage(5)" class="nav-button">
+            ← 前のページへ
+          </button>
+          <button onclick="checkAnswers(6)" class="check-button">
+            6ページの答え合わせ
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 問題の構成と答えを定義
+      const quizData = [
+        // --- 1ページ目の問題 ---
+        { id: "1-1", type: "fill", answer: "公平", page: 1 },
+        { id: "1-2", type: "fill", answer: "能率的", page: 1 },
+        { id: "1-3", type: "fill", answer: "公共の福祉", page: 1 },
+        {
+          id: "2-1",
+          type: "writing",
+          answer:
+            "公平かつ能率的な利用を確保することによって、公共の福祉を増進するように利用されるべき。",
+          page: 1,
+        },
+        {
+          id: "3-1",
+          type: "choice",
+          answer:
+            "A,三百万、B,電気的設備、C,無線設備の操作を行う者の総体、D,免許",
+          page: 1,
+        },
+        { id: "4-1", type: "fill", answer: "1", page: 1 },
+        { id: "4-2", type: "fill", answer: "4", page: 1 },
+        { id: "4-3", type: "fill", answer: "2", page: 1 },
+        { id: "4-4", type: "fill", answer: "3", page: 1 },
+
+        // ---page. 2---
+        { id: "5-1", type: "fill", answer: "国籍", page: 2 },
+        { id: "5-2", type: "fill", answer: "外国", page: 2 },
+        { id: "5-3", type: "fill", answer: "三分の一", page: 2 },
+
+        { id: "6-1", type: "fill", answer: "申請の審査", page: 2 },
+        { id: "6-2", type: "fill", answer: "予備免許", page: 2 },
+        { id: "6-3", type: "fill", answer: "落成届", page: 2 },
+        { id: "6-4", type: "fill", answer: "落成後の検査", page: 2 },
+
+        { id: "7-1", type: "fill", answer: "1", page: 2 },
+        { id: "7-2", type: "fill", answer: "6", page: 2 },
+        { id: "7-3", type: "fill", answer: "5", page: 2 },
+        { id: "7-4", type: "fill", answer: "8", page: 2 },
+        { id: "7-5", type: "fill", answer: "2", page: 2 },
+        { id: "7-6", type: "fill", answer: "3", page: 2 },
+        { id: "7-7", type: "fill", answer: "4", page: 2 },
+        { id: "7-8", type: "fill", answer: "5", page: 2 },
+
+        // ---page. 3---
+        {
+          id: "8-1",
+          type: "checkbox",
+          answer: ["1", "4"],
+          page: 3,
+        },
+
+        { id: "9-1", type: "fill", answer: "3", page: 3 },
+        { id: "9-2", type: "fill", answer: "8", page: 3 },
+        { id: "9-3", type: "fill", answer: "6", page: 3 },
+        { id: "9-4", type: "fill", answer: "5", page: 3 },
+        { id: "9-5", type: "fill", answer: "4", page: 3 },
+        { id: "9-6", type: "fill", answer: "1", page: 3 },
+        { id: "9-7", type: "fill", answer: "7", page: 3 },
+        { id: "9-8", type: "fill", answer: "2", page: 3 },
+
+        { id: "10-1", type: "fill", answer: "3", page: 3 },
+        { id: "10-2", type: "fill", answer: "4", page: 3 },
+        { id: "10-3", type: "fill", answer: "1", page: 3 },
+        { id: "10-4", type: "fill", answer: "2", page: 3 },
+        { id: "10-5", type: "fill", answer: "5", page: 3 },
+
+        // ---page. 4---
+        { id: "11-1", type: "fill", answer: "1", page: 4 },
+        { id: "11-2", type: "fill", answer: "3", page: 4 },
+        { id: "11-3", type: "fill", answer: "4", page: 4 },
+        { id: "11-4", type: "fill", answer: "2", page: 4 },
+        { id: "11-5", type: "fill", answer: "5", page: 4 },
+
+        {
+          id: "12-1",
+          type: "choice",
+          answer: "1",
+          page: 4,
+        },
+
+        { id: "13-1", type: "fill", answer: "3", page: 4 },
+        { id: "13-2", type: "fill", answer: "5", page: 4 },
+
+        // ---page. 5---
+        { id: "14-1", type: "fill", answer: "偏差及び幅", page: 5 },
+        { id: "14-2", type: "fill", answer: "高調波の強度等", page: 5 },
+        { id: "14-3", type: "fill", answer: "適合", page: 5 },
+
+        { id: "15-1", type: "fill", answer: "8", page: 5 },
+        { id: "15-2", type: "fill", answer: "3", page: 5 },
+        { id: "15-3", type: "fill", answer: "1", page: 5 },
+        { id: "15-4", type: "fill", answer: "6", page: 5 },
+
+        { id: "16-1", type: "fill", answer: "2", page: 5 },
+        { id: "16-2", type: "fill", answer: "5", page: 5 },
+
+        { id: "17-1", type: "fill", answer: "1", page: 5 },
+        { id: "17-2", type: "fill", answer: "5", page: 5 },
+
+        { id: "18-1", type: "fill", answer: "2", page: 5 },
+        { id: "18-2", type: "fill", answer: "4", page: 5 },
+        { id: "18-3", type: "fill", answer: "8", page: 5 },
+
+        // ---page. 5---
+        { id: "19-1", type: "fill", answer: "2", page: 6 },
+        { id: "19-2", type: "fill", answer: "4", page: 6 },
+        { id: "19-3", type: "fill", answer: "3", page: 6 },
+        { id: "19-4", type: "fill", answer: "1", page: 6 },
+
+        { id: "20-1", type: "fill", answer: "6", page: 6 },
+        { id: "20-2", type: "fill", answer: "5", page: 6 },
+        { id: "20-3", type: "fill", answer: "2", page: 6 },
+        { id: "20-4", type: "fill", answer: "4", page: 6 },
+      ];
+
+      // 指定されたページを表示する関数
+      function showPage(pageNumber) {
+        document
+          .querySelectorAll(".page")
+          .forEach((page) => page.classList.remove("active"));
+        document.getElementById(`page-${pageNumber}`).classList.add("active");
+      }
+
+      // 指定されたページの答えをチェックする関数
+      function checkAnswers(pageNumber) {
+        const questionsOnPage = quizData.filter((q) => q.page === pageNumber);
+
+        questionsOnPage.forEach((question) => {
+          const resultMarker = document.getElementById(`result-${question.id}`);
+          if (!resultMarker) return; // resultMarkerがない場合はスキップ
+
+          let isCorrect = false;
+
+          if (question.type === "fill") {
+            // 穴埋め、画像、選択肢入力問題
+            const userAnswer = document.getElementById(
+              `answer-${question.id}`
+            ).value;
+            if (userAnswer.trim() === question.answer) isCorrect = true;
+          } else if (question.type === "choice") {
+            const selectedOption = document.querySelector(
+              `input[name="answer-${question.id}"]:checked`
+            );
+            if (selectedOption && selectedOption.value === question.answer)
+              isCorrect = true;
+          } else if (question.type === "writing") {
+            resultMarker.innerHTML = `<strong>【模範解答】</strong><br>${question.answer}`;
+            return;
+          } else if (question.type === "checkbox") {
+            // ★★★ 修正点：チェックボックス問題の採点ロジックを追加 ★★★
+            const checkedBoxes = document.querySelectorAll(
+              `input[name="answer-${question.id}"]:checked`
+            );
+            const userAnswers = Array.from(checkedBoxes).map((cb) => cb.value);
+
+            // ユーザーの回答と正解が一致するか確認（順序は問わない）
+            if (
+              userAnswers.length === question.answer.length &&
+              userAnswers.every((val) => question.answer.includes(val))
+            ) {
+              isCorrect = true;
+            }
+          }
+
+          if (isCorrect) {
+            resultMarker.textContent = "〇";
+            resultMarker.style.color = "red";
+          } else {
+            resultMarker.textContent = "✖";
+            resultMarker.style.color = "blue";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
